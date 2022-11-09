@@ -1,0 +1,82 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <section class="room-wrapper">
+        <section class="video-area">
+            <section id="room-section">
+                <p>Room Name: 
+                    <span id="room-name"></span>
+                </p>
+            </section>
+            <section id="video-stream"></section>
+            <!-- controls -->
+            <div class="control-main-wrapper">
+            <div id="control-wrapper">
+                <div class="icon-wrapper">
+                    <img class="control-icon" id="mic-btn" src="{% static 'images/microphone.svg' %}"/>
+                </div>
+                <div class="icon-wrapper">
+                    <img class="control-icon" id="video-btn" src="{% static 'images/video.svg' %}"/>
+                </div>
+                <div class="icon-wrapper">
+                    <img class="control-icon" id="exit-btn" src="{% static 'images/leave.svg' %}"/>
+                </div>
+            </div>
+            </div>
+        </section>
+        <section id="chat-section">
+            <div id="chat">
+                <div id="chat-text"></div>
+                <br/>
+                <div>
+                    <input id="input" name="message" type="text" placeholder="type something..." autocomplete="off"><br/>
+                    <input id="btn" type="button" value="Send">
+                </div>
+            </div>
+        </section>
+    </section>
+</main>
+<script type="text/javascript" src="{% static 'assests/AgoraRTC_N-4.14.0.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/stream.js' %}"></script>
+{{ username|json_script:"user-name" }}
+{{ room_name|json_script:"room-name" }}
+<script>
+    const username = sessionStorage.getItem('userID',userID)
+    const loc = window.location
+    const wsStart = "ws://"
+    if(loc.protocol == 'https') 
+        wsStart = 'wss://'
+   
+    const endpoint = wsStart+loc.host+loc.pathname
+    const socket = new WebSocket(endpoint)
+    
+    socket.onopen = function(e) {
+        console.log('on-open')
+        document.getElementById('btn').onclick = function(e) {
+            const messageInputDom = document.getElementById('input');
+            const message = messageInputDom.value;
+            socket.send(JSON.stringify({
+                'message': message,
+                'username': username,
+            }))
+            messageInputDom.value = ''
+        }
+    }
+    socket.close = function(e) {
+        console.log('Socket connection is closed')
+        setTimeout(function() {
+            chatSocket()
+        }, 1000)
+    }
+    socket.onmessage = function(e) {
+        let data = JSON.parse(e.data)
+        console.log('message can be send',data);
+        console.log('inside')
+        var element = document.createElement('div');
+        const message = data.username+':'+data.message
+        element.appendChild(document.createTextNode(message));
+        document.getElementById('chat-text').appendChild(element);
+    }
+</script>
+{% endblock content %}

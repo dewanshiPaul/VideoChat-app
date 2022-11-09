@@ -1,0 +1,153 @@
+:root {
+    --shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+body {
+    background-color: rgba(232, 233, 239, 1);
+}
+
+/* lobby styling */
+#app-logo {
+    display: block;
+    width: 100px;
+    margin: 5vh auto;
+}
+
+#form-section {
+    width: 400px;
+    box-shadow: var(--shadow);
+    background-color: #fff;
+    padding: 10%;
+    border-radius: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+form {
+    gap: 10px;
+    display: flex;
+}
+
+/* room styling */
+.room-wrapper {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
+
+.video-area {
+    display: flex;
+    flex-direction: column;
+}
+
+#video-stream {
+    display: flex;
+    flex-wrap: wrap;
+    height: 85vh;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.video-container {
+    flex-basis: 500px;
+    flex-grow: 1;
+    max-height: 100%;
+    min-height: 200px;
+    border-radius: 20px;
+    margin: 2px;
+    background-color: #FBE7C6;
+}
+
+.video-player {
+    height: 100%;
+    width: 100%;
+}
+
+.username-wrapper {
+    padding: 1em;
+    font-weight: 600;;
+}
+/* chat section */
+#chat-section {
+    height: 100vh;
+}
+
+#chat {
+    display: flex;
+    flex-direction: column;
+}
+#chat-text {
+    width: 100%;
+    min-height: 85vh;
+    background-color: rgb(218, 154, 239);
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+#input {
+    border-radius: 5px;
+    width: -webkit-fill-available;
+    padding: 5px;
+    border: none;
+}
+
+#btn {
+    border-radius: 5px;
+    width: 10vw;
+    margin-top: 5px;
+    background-image: linear-gradient(#3498db,#2980b9);
+    border: none;
+    padding: 5px 0;
+}
+/* icons */
+.control-icon {
+    box-shadow: var(--shadow);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.control-main-wrapper{
+    display: flex;
+    position: fixed;
+    bottom: 20px;
+    right: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+#control-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    column-gap: 1em;
+    position: relative;
+}
+
+#mic-btn {
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    background-color: rgb(249, 230, 230);
+}
+
+#video-btn {
+    height: 70px;
+    width: 70px;
+    background-color: rgb(249, 230, 230);
+}
+
+#exit-btn {
+    height: 45px;
+    width: 45px;
+    padding: 10px;
+    background-color: rgb(255,80,80,1);
+}
